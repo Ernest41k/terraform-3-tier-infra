@@ -1,3 +1,8 @@
+# to create an RDS, you need 
+# a db subnet group made up of private subnets
+# a db security group
+# the db instance
+
 resource "aws_db_subnet_group" "db_subnet_group" {
   name = "${var.tags["project"]}-${var.tags["application"]}-${var.tags["environment"]}-subnet-group"
   subnet_ids = [var.private_subnet1, var.private_subnet2]
@@ -23,7 +28,7 @@ resource "aws_security_group" "rds_sg" {
   egress {
     from_port        = 0
     to_port          = 0
-    protocol         = "-1"
+    protocol         = "-1"  # allows any type of protocol
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
   }
